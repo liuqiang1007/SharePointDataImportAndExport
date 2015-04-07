@@ -50,6 +50,53 @@ namespace SharePointDataImportAndExport
             }
             return listArr;
         }
+        public ArrayList getListFields(ClientContext spcontext, bool hidden, string listTitle)
+        {
+            ArrayList fieldArr = new ArrayList();
+            if (!string.IsNullOrEmpty(listTitle))
+            {
+                var web = spcontext.Web;
+                var listFields = spcontext.LoadQuery(web.Lists.GetByTitle(listTitle).Fields);
+                spcontext.ExecuteQuery();
+                foreach (var field in listFields)
+                {
+                    var fieldInfo = field.Title + "@" + field.InternalName + "@" + field.TypeAsString;
+                    //如果是Outlook类型，获取 查阅项源list GUID,及源字段内部名称
+                    if (field.TypeAsString.Contains("ook"))
+                    {
+                        FieldLookup flp = field as FieldLookup;
+                        if (flp != null)
+                        {
+                            //源list GUID
+                            var listId = flp.LookupList;
+                            //源字段 内部名称
+                            var listField = flp.LookupField;
+                            //显示名称@内部名称@字段类型@查阅项源list GUID@查阅项源字段内部名称
+                            fieldInfo += "@" + listId + "@" + listFields;
+                        }
+                    }
+
+                    if (field.Hidden)
+                    {
+                        if (hidden)
+                        {                            
+                            fieldArr.Add(fieldInfo); 
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        fieldArr.Add(fieldInfo); 
+                    }
+                }
+            }
+
+
+            return fieldArr;
+        }
 
     }
 }

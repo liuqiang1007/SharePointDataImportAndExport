@@ -41,8 +41,8 @@
             this.lbxLists = new System.Windows.Forms.ListBox();
             this.btnLoadLists = new System.Windows.Forms.Button();
             this.cbxHidden = new System.Windows.Forms.CheckBox();
-            this.cklbFields = new System.Windows.Forms.CheckedListBox();
             this.btnLoadField = new System.Windows.Forms.Button();
+            this.cklbFields = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +79,7 @@
             this.tbxUrl.Location = new System.Drawing.Point(77, 16);
             this.tbxUrl.Name = "tbxUrl";
             this.tbxUrl.Size = new System.Drawing.Size(208, 21);
-            this.tbxUrl.TabIndex = 15;
+            this.tbxUrl.TabIndex = 1;
             // 
             // label2
             // 
@@ -95,7 +95,7 @@
             this.tbxDomain.Location = new System.Drawing.Point(340, 17);
             this.tbxDomain.Name = "tbxDomain";
             this.tbxDomain.Size = new System.Drawing.Size(138, 21);
-            this.tbxDomain.TabIndex = 23;
+            this.tbxDomain.TabIndex = 2;
             // 
             // label4
             // 
@@ -111,7 +111,7 @@
             this.tbxUserName.Location = new System.Drawing.Point(535, 18);
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(100, 21);
-            this.tbxUserName.TabIndex = 22;
+            this.tbxUserName.TabIndex = 3;
             // 
             // label3
             // 
@@ -128,7 +128,7 @@
             this.tbxPassWord.Name = "tbxPassWord";
             this.tbxPassWord.PasswordChar = '*';
             this.tbxPassWord.Size = new System.Drawing.Size(100, 21);
-            this.tbxPassWord.TabIndex = 21;
+            this.tbxPassWord.TabIndex = 4;
             // 
             // panel2
             // 
@@ -156,7 +156,7 @@
             this.btnLoadLists.Location = new System.Drawing.Point(73, 6);
             this.btnLoadLists.Name = "btnLoadLists";
             this.btnLoadLists.Size = new System.Drawing.Size(108, 23);
-            this.btnLoadLists.TabIndex = 30;
+            this.btnLoadLists.TabIndex = 6;
             this.btnLoadLists.Text = "LoadLists";
             this.btnLoadLists.UseVisualStyleBackColor = true;
             this.btnLoadLists.Click += new System.EventHandler(this.btnLoadLists_Click);
@@ -167,9 +167,19 @@
             this.cbxHidden.Location = new System.Drawing.Point(11, 9);
             this.cbxHidden.Name = "cbxHidden";
             this.cbxHidden.Size = new System.Drawing.Size(60, 16);
-            this.cbxHidden.TabIndex = 34;
+            this.cbxHidden.TabIndex = 5;
             this.cbxHidden.Text = "Hidden";
             this.cbxHidden.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadField
+            // 
+            this.btnLoadField.Location = new System.Drawing.Point(225, 6);
+            this.btnLoadField.Name = "btnLoadField";
+            this.btnLoadField.Size = new System.Drawing.Size(155, 23);
+            this.btnLoadField.TabIndex = 7;
+            this.btnLoadField.Text = "LoadFieldBySelectedList";
+            this.btnLoadField.UseVisualStyleBackColor = true;
+            this.btnLoadField.Click += new System.EventHandler(this.btnLoadField_Click);
             // 
             // cklbFields
             // 
@@ -178,15 +188,6 @@
             this.cklbFields.Name = "cklbFields";
             this.cklbFields.Size = new System.Drawing.Size(244, 516);
             this.cklbFields.TabIndex = 33;
-            // 
-            // btnLoadField
-            // 
-            this.btnLoadField.Location = new System.Drawing.Point(225, 6);
-            this.btnLoadField.Name = "btnLoadField";
-            this.btnLoadField.Size = new System.Drawing.Size(155, 23);
-            this.btnLoadField.TabIndex = 31;
-            this.btnLoadField.Text = "LoadFieldBySelectedList";
-            this.btnLoadField.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
