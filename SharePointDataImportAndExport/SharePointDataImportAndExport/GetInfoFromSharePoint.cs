@@ -12,8 +12,10 @@ namespace SharePointDataImportAndExport
     /// <summary>
     /// get info from SharePoint site
     /// </summary>
+    /// 
     class GetInfoFromSharePoint
     {
+
         /// <summary>
         /// Lists rrturn in an array
         /// </summary>
@@ -76,20 +78,24 @@ namespace SharePointDataImportAndExport
                         }
                     }
 
-                    if (field.Hidden)
+                    //Filter readonly and hidden Fields
+                    if (!field.ReadOnlyField)
                     {
-                        if (hidden)
-                        {                            
-                            fieldArr.Add(fieldInfo); 
+                        if (!hidden)
+                        {
+                            if (!field.Hidden)
+                            {
+                                fieldArr.Add(fieldInfo);
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
-                            continue;
+                            fieldArr.Add(fieldInfo);
                         }
-                    }
-                    else
-                    {
-                        fieldArr.Add(fieldInfo); 
                     }
                 }
             }
@@ -98,5 +104,24 @@ namespace SharePointDataImportAndExport
             return fieldArr;
         }
 
+        public ArrayList getWeb(string siteUrl, string username, string password, string domain)
+        {
+            ArrayList wc = new ArrayList();
+            // credentials
+            NetworkCredential myCred = new NetworkCredential(username, password, domain);
+
+            // new context
+            ClientContext context = new ClientContext(siteUrl);
+            context.Credentials = myCred;
+            // web ref
+            Web web = context.Web;
+
+            // load context
+            context.Load(web);
+            context.ExecuteQuery();
+            wc.Add(web);
+            wc.Add(context);
+            return wc;
+        }
     }
 }
