@@ -17,7 +17,7 @@ namespace SharePointDataImportAndExport
     {
 
         /// <summary>
-        /// Lists rrturn in an array
+        /// Lists return in an array
         /// </summary>
         /// <param name="siteurl"></param>
         /// <param name="domain"></param>
@@ -52,6 +52,14 @@ namespace SharePointDataImportAndExport
             }
             return listArr;
         }
+
+        /// <summary>
+        /// get list array like "title@internalname@fileType"
+        /// </summary>
+        /// <param name="spcontext"></param>
+        /// <param name="hidden">True contain Hidden field</param>
+        /// <param name="listTitle"> listTitle</param>
+        /// <returns></returns>
         public ArrayList getListFields(ClientContext spcontext, bool hidden, string listTitle)
         {
             ArrayList fieldArr = new ArrayList();
@@ -103,7 +111,14 @@ namespace SharePointDataImportAndExport
 
             return fieldArr;
         }
-
+        /// <summary>
+        /// return Web and context in an array
+        /// </summary>
+        /// <param name="siteUrl">url</param>
+        /// <param name="username">username</param>
+        /// <param name="password">pwd</param>
+        /// <param name="domain">domain</param>
+        /// <returns></returns>
         public ArrayList getWeb(string siteUrl, string username, string password, string domain)
         {
             ArrayList wc = new ArrayList();

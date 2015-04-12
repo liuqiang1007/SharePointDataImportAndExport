@@ -1,6 +1,6 @@
 ﻿namespace SharePointDataImportAndExport
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDisconnect = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxUrl = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,17 +39,25 @@
             this.tbxUserName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbxPassWord = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelField = new System.Windows.Forms.Panel();
+            this.cbxSourceField01 = new System.Windows.Forms.ComboBox();
+            this.btnLoadField = new System.Windows.Forms.Button();
+            this.cklbFields = new System.Windows.Forms.CheckedListBox();
             this.lbxLists = new System.Windows.Forms.ListBox();
             this.btnLoadLists = new System.Windows.Forms.Button();
             this.cbxHidden = new System.Windows.Forms.CheckBox();
-            this.btnLoadField = new System.Windows.Forms.Button();
-            this.cklbFields = new System.Windows.Forms.CheckedListBox();
-            this.btnConnect = new System.Windows.Forms.Button();
-            this.btnDisconnect = new System.Windows.Forms.Button();
             this.lblRuning = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgvData = new System.Windows.Forms.DataGridView();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.btnGetExcelData = new System.Windows.Forms.Button();
+            this.tbxFilePath = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelField.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -62,12 +72,31 @@
             this.groupBox1.Controls.Add(this.tbxUserName);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.tbxPassWord);
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Location = new System.Drawing.Point(3, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(228, 157);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "loginInfo";
+            // 
+            // btnDisconnect
+            // 
+            this.btnDisconnect.Location = new System.Drawing.Point(27, 129);
+            this.btnDisconnect.Name = "btnDisconnect";
+            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
+            this.btnDisconnect.TabIndex = 27;
+            this.btnDisconnect.Text = "Disconnect";
+            this.btnDisconnect.UseVisualStyleBackColor = true;
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(126, 129);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(75, 23);
+            this.btnConnect.TabIndex = 26;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // label1
             // 
@@ -80,6 +109,7 @@
             // 
             // tbxUrl
             // 
+            this.tbxUrl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbxUrl.Location = new System.Drawing.Point(77, 17);
             this.tbxUrl.Name = "tbxUrl";
             this.tbxUrl.Size = new System.Drawing.Size(138, 20);
@@ -96,6 +126,7 @@
             // 
             // tbxDomain
             // 
+            this.tbxDomain.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbxDomain.Location = new System.Drawing.Point(77, 43);
             this.tbxDomain.Name = "tbxDomain";
             this.tbxDomain.Size = new System.Drawing.Size(138, 20);
@@ -112,6 +143,7 @@
             // 
             // tbxUserName
             // 
+            this.tbxUserName.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbxUserName.Location = new System.Drawing.Point(77, 72);
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(138, 20);
@@ -128,20 +160,49 @@
             // 
             // tbxPassWord
             // 
+            this.tbxPassWord.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbxPassWord.Location = new System.Drawing.Point(77, 103);
             this.tbxPassWord.Name = "tbxPassWord";
             this.tbxPassWord.PasswordChar = '*';
             this.tbxPassWord.Size = new System.Drawing.Size(138, 20);
             this.tbxPassWord.TabIndex = 4;
             // 
-            // panel2
+            // panelField
             // 
-            this.panel2.Controls.Add(this.btnLoadField);
-            this.panel2.Controls.Add(this.cklbFields);
-            this.panel2.Location = new System.Drawing.Point(234, 72);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(190, 603);
-            this.panel2.TabIndex = 2;
+            this.panelField.AutoScroll = true;
+            this.panelField.Controls.Add(this.cbxSourceField01);
+            this.panelField.Controls.Add(this.btnLoadField);
+            this.panelField.Controls.Add(this.cklbFields);
+            this.panelField.Location = new System.Drawing.Point(234, 72);
+            this.panelField.Name = "panelField";
+            this.panelField.Size = new System.Drawing.Size(303, 591);
+            this.panelField.TabIndex = 2;
+            // 
+            // cbxSourceField01
+            // 
+            this.cbxSourceField01.FormattingEnabled = true;
+            this.cbxSourceField01.Location = new System.Drawing.Point(180, 20);
+            this.cbxSourceField01.Name = "cbxSourceField01";
+            this.cbxSourceField01.Size = new System.Drawing.Size(120, 21);
+            this.cbxSourceField01.TabIndex = 34;
+            // 
+            // btnLoadField
+            // 
+            this.btnLoadField.Location = new System.Drawing.Point(9, 6);
+            this.btnLoadField.Name = "btnLoadField";
+            this.btnLoadField.Size = new System.Drawing.Size(155, 27);
+            this.btnLoadField.TabIndex = 7;
+            this.btnLoadField.Text = "LoadFieldBySelectedList";
+            this.btnLoadField.UseVisualStyleBackColor = true;
+            this.btnLoadField.Click += new System.EventHandler(this.btnLoadField_Click);
+            // 
+            // cklbFields
+            // 
+            this.cklbFields.FormattingEnabled = true;
+            this.cklbFields.Location = new System.Drawing.Point(5, 42);
+            this.cklbFields.Name = "cklbFields";
+            this.cklbFields.Size = new System.Drawing.Size(168, 34);
+            this.cklbFields.TabIndex = 33;
             // 
             // lbxLists
             // 
@@ -172,46 +233,10 @@
             this.cbxHidden.Text = "Hidden";
             this.cbxHidden.UseVisualStyleBackColor = true;
             // 
-            // btnLoadField
-            // 
-            this.btnLoadField.Location = new System.Drawing.Point(9, 6);
-            this.btnLoadField.Name = "btnLoadField";
-            this.btnLoadField.Size = new System.Drawing.Size(155, 27);
-            this.btnLoadField.TabIndex = 7;
-            this.btnLoadField.Text = "LoadFieldBySelectedList";
-            this.btnLoadField.UseVisualStyleBackColor = true;
-            this.btnLoadField.Click += new System.EventHandler(this.btnLoadField_Click);
-            // 
-            // cklbFields
-            // 
-            this.cklbFields.FormattingEnabled = true;
-            this.cklbFields.Location = new System.Drawing.Point(5, 43);
-            this.cklbFields.Name = "cklbFields";
-            this.cklbFields.Size = new System.Drawing.Size(168, 544);
-            this.cklbFields.TabIndex = 33;
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(126, 129);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnConnect.TabIndex = 26;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // btnDisconnect
-            // 
-            this.btnDisconnect.Location = new System.Drawing.Point(27, 129);
-            this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
-            this.btnDisconnect.TabIndex = 27;
-            this.btnDisconnect.Text = "Disconnect";
-            this.btnDisconnect.UseVisualStyleBackColor = true;
-            // 
             // lblRuning
             // 
             this.lblRuning.AutoSize = true;
+            this.lblRuning.BackColor = System.Drawing.SystemColors.Info;
             this.lblRuning.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblRuning.ForeColor = System.Drawing.Color.Red;
             this.lblRuning.Location = new System.Drawing.Point(240, 17);
@@ -219,22 +244,94 @@
             this.lblRuning.Size = new System.Drawing.Size(0, 17);
             this.lblRuning.TabIndex = 33;
             // 
-            // Main
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dgvData);
+            this.groupBox2.Controls.Add(this.btnBrowse);
+            this.groupBox2.Controls.Add(this.btnGetExcelData);
+            this.groupBox2.Controls.Add(this.tbxFilePath);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Location = new System.Drawing.Point(543, 72);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(572, 591);
+            this.groupBox2.TabIndex = 34;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "getExcelData";
+            // 
+            // dgvData
+            // 
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Location = new System.Drawing.Point(6, 42);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.Size = new System.Drawing.Size(560, 543);
+            this.dgvData.TabIndex = 4;
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(270, 12);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.TabIndex = 3;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // btnGetExcelData
+            // 
+            this.btnGetExcelData.Enabled = false;
+            this.btnGetExcelData.Location = new System.Drawing.Point(397, 12);
+            this.btnGetExcelData.Name = "btnGetExcelData";
+            this.btnGetExcelData.Size = new System.Drawing.Size(75, 23);
+            this.btnGetExcelData.TabIndex = 2;
+            this.btnGetExcelData.Text = "getData";
+            this.btnGetExcelData.UseVisualStyleBackColor = true;
+            this.btnGetExcelData.Click += new System.EventHandler(this.btnGetExcelData_Click);
+            // 
+            // tbxFilePath
+            // 
+            this.tbxFilePath.BackColor = System.Drawing.SystemColors.Control;
+            this.tbxFilePath.Location = new System.Drawing.Point(60, 14);
+            this.tbxFilePath.Name = "tbxFilePath";
+            this.tbxFilePath.ReadOnly = true;
+            this.tbxFilePath.Size = new System.Drawing.Size(204, 20);
+            this.tbxFilePath.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "FilePath：";
+            // 
+            // openFileDialogExcel
+            // 
+            this.openFileDialogExcel.FileName = "openFileDialogExcel";
+            this.openFileDialogExcel.Filter = "Excel File 2003|*.xls|Excel File 2007|*.xlsx";
+            this.openFileDialogExcel.Title = "Select Excel File";
+            this.openFileDialogExcel.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogExcel_FileOk);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1127, 675);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lblRuning);
             this.Controls.Add(this.btnLoadLists);
             this.Controls.Add(this.cbxHidden);
             this.Controls.Add(this.lbxLists);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelField);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "SharePointDataImportAndExport";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.panelField.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,7 +348,7 @@
         private System.Windows.Forms.TextBox tbxUserName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbxPassWord;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelField;
         private System.Windows.Forms.ListBox lbxLists;
         private System.Windows.Forms.Button btnLoadLists;
         private System.Windows.Forms.CheckBox cbxHidden;
@@ -260,6 +357,14 @@
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label lblRuning;
+        private System.Windows.Forms.ComboBox cbxSourceField01;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.Button btnGetExcelData;
+        private System.Windows.Forms.TextBox tbxFilePath;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.OpenFileDialog openFileDialogExcel;
+        private System.Windows.Forms.DataGridView dgvData;
     }
 }
 

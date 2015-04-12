@@ -13,14 +13,14 @@ using System.Windows.Forms;
 
 namespace SharePointDataImportAndExport
 {
-    public partial class Main : System.Windows.Forms.Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
         GetInfoFromSharePoint _getInfo;
         Web _web;
         ClientContext _context;
-        string _selectListTitle;
-        Thread _runing;
-        public Main()
+        string _selectListTitle; //selected list title;
+        Thread _runing; //tip message thread;
+        public MainForm()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -28,42 +28,12 @@ namespace SharePointDataImportAndExport
 
         private void btnLoadLists_Click(object sender, EventArgs e)
         {
-            bool hidden = this.cbxHidden.Checked;
-            //_getInfo = new GetInfoFromSharePoint();
-            //string siteUrl = this.tbxUrl.Text.Trim();
-            //string domain = this.tbxDomain.Text.Trim();
-            //string userName = this.tbxUserName.Text.Trim();
-            //string passWord = this.tbxPassWord.Text.Trim();
-
-
-            //  var spContext = new ClientContext(siteUrl);
-
-            // var credential = new NetworkCredential(userName, passWord, domain);
-            // spContext.Credentials = credential;
-            // ClientRuntimeContext  cc = _web.Context;
-            // ArrayList lists = _getInfo.getLists(spContext, hidden);
-            //if (lists!=null&&lists.Count>0)
-            //{
-            //    foreach (var item in lists)
-            //    {
-            //        if (hidden)
-            //        {
-            //             this.lbxLists.Items.Add(item.Title);
-            //        }
-            //        else
-            //        {
-            //            if (!item.Hidden)
-            //            {
-            //                 this.lbxLists.Items.Add(item.Title);
-            //            }
-            //        }
-
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Get lists Field.");
-            //}
+            this.btnConnect.Enabled = false;
+            this.btnLoadLists.Enabled = false;
+            Thread t = new Thread(getList);
+            t.Start();
+            _runing = new Thread(displayRuning);
+            _runing.Start("正在处理中...");
         }
 
         private void btnLoadField_Click(object sender, EventArgs e)
@@ -95,36 +65,11 @@ namespace SharePointDataImportAndExport
         private void btnConnect_Click(object sender, EventArgs e)
         {
             this.btnConnect.Enabled = false;
+            this.btnLoadLists.Enabled = false;
             Thread t = new Thread(getList);
             t.Start();
             _runing = new Thread(displayRuning);
             _runing.Start("正在处理中...");
-            //bool done = true;
-            //while (done)
-            //{
-            //    if (this.lbxLists.Items.Count > 0 || this.btnConnect.Enabled)
-            //    {
-            //        runing.Abort();
-            //        done = false;
-            //    }
-
-            //}
-            ////Three minutes Time out    
-            //bool tout = t.Join(10000);
-            //while (1 > 0)
-            //{
-            //    if (tout)
-            //    {
-            //        runing.Abort();
-            //        MessageBox.Show("Sorry，Time out!");
-            //        this.btnConnect.Enabled = true;
-            //        this.lblRuning.Text = "Sorry，Time out!.";
-            //        Thread.Sleep(5000);
-            //        this.lblRuning.Text = "";
-            //        break;
-            //    }
-            //}
-
         }
 
         public void getList()
@@ -190,7 +135,13 @@ namespace SharePointDataImportAndExport
 
             Thread.Sleep(5000);
             this.lblRuning.Text = "";
+            this.btnLoadLists.Enabled = true;
         }
+
+        /// <summary>
+        /// Tip message
+        /// </summary>
+        /// <param name="obj">string</param>
         public void displayRuning(object obj)
         {
             this.lblRuning.Text = obj.ToString();
@@ -222,14 +173,74 @@ namespace SharePointDataImportAndExport
             {
                 ArrayList fieldArr = _getInfo.getListFields(_context, this.cbxHidden.Checked, obj.ToString());
                 this.cklbFields.Items.Clear();
+                int p=0;
+                int initPointY = this.cklbFields.Location.Y;
+                int initPointX = this.cklbFields.Location.X;
                 foreach (var item in fieldArr)
                 {
+                    int y = initPointY + 20;
                     this.cklbFields.Items.Add(item);
+                    
+                    ComboBox cbx = new ComboBox();
+                    cbx.Name = "cbxSourceField" + p;
+                    p++;
+                    cbx.Location = new Point(180, y+1);
+                    cbx.Enabled = false;
+                    this.panelField.Controls.Add(cbx);
+                    //控件高度 随字段数量增长
+                    cklbFields.Height += 21; 
+                    if (cklbFields.Height>panelField.Height)
+                    {
+                        panelField.Height += 21;
+                        this.FindForm().Height += 21;
+                    }
+
                 }
             }
             _runing.Abort();
             Thread.Sleep(5000);
             this.lblRuning.Text = "";
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            DialogResult openFileResult = openFileDialogExcel.ShowDialog();
+            
+        }
+
+        private void openFileDialogExcel_FileOk(object sender, CancelEventArgs e)
+        {
+            tbxFilePath.Text = openFileDialogExcel.FileName;
+            if (!string.IsNullOrEmpty(tbxFilePath.Text.Trim()))
+            {
+                this.btnGetExcelData.Enabled = true;
+            }
+        }
+
+        private void btnGetExcelData_Click(object sender, EventArgs e)
+        {
+            excelHelper eh = new excelHelper();
+            DataSet ds = eh.LoadDataFromExcel(tbxFilePath.Text);
+            DataTable excelDataTable = ds.Tables[0];
+            this.dgvData.DataSource = excelDataTable;
+            int t = 0;// 再次加载前清空 历史数据
+            for (int i = 0; i < excelDataTable.Columns.Count; i++)
+            {
+                string item = excelDataTable.Rows[1][i].ToString();
+                foreach (Control c in panelField.Controls)
+                {
+                    if (c is ComboBox)
+                    {
+                        if (t == 0)
+                        {
+                            ((ComboBox)c).Items.Clear();
+                        }
+                        ((ComboBox)c).Items.Add(item);
+                    }
+                }
+                t = 2;
+            }
+            
         }
     }
 }
