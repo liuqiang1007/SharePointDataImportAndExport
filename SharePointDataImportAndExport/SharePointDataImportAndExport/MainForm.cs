@@ -69,7 +69,7 @@ namespace SharePointDataImportAndExport
             Thread t = new Thread(getList);
             t.Start();
             _runing = new Thread(displayRuning);
-            _runing.Start("正在处理中...");
+            _runing.Start("正在处理中");
         }
 
         public void getList()
@@ -148,12 +148,15 @@ namespace SharePointDataImportAndExport
 
             while (true)
             {
-                Thread.Sleep(1000);
-                lblRuning.Visible = false;
-                Thread.Sleep(1000);
-                lblRuning.Visible = true; 
+                Thread.Sleep(500);
+                lblRuning.Text+=".";
+                Thread.Sleep(500);
+                lblRuning.Text += ".";
+                Thread.Sleep(500);
+                lblRuning.Text+=".";
+                Thread.Sleep(500);
+                lblRuning.Text=obj.ToString();
             }
-
         }
 
         private void lbxLists_DoubleClick(object sender, EventArgs e)
@@ -163,38 +166,52 @@ namespace SharePointDataImportAndExport
             {
                 _runing = new Thread(displayRuning);
                 _runing.Start("Loading fields for selected list \"" + _selectListTitle + "\"");
-                Thread getField = new Thread(getListFields);
-                getField.Start(_selectListTitle);
+              //  Thread getField = new Thread(getListFields);
+               // getField.Start(_selectListTitle);
+                getListFields(_selectListTitle);
             }
         }
         public void getListFields(object obj)
         {
+            this.cklbFields.Height = 50;
+            //移除控件
+            foreach (Control c in panelField.Controls)
+            {
+                panelField.Controls.Remove(c);
+            }
+            CheckedListBox cklb = new CheckedListBox();
+            cklb.Name = "cklbFields";
+            cklb.Location = new Point(10,10);
+            panelField.Controls.Add(cklb);
+
             if (_getInfo != null)
             {
                 ArrayList fieldArr = _getInfo.getListFields(_context, this.cbxHidden.Checked, obj.ToString());
                 this.cklbFields.Items.Clear();
                 int p=0;
-                int initPointY = this.cklbFields.Location.Y;
-                int initPointX = this.cklbFields.Location.X;
+                int initPointY =10;
+                int height = this.cklbFields.Height;
                 foreach (var item in fieldArr)
-                {
-                    int y = initPointY + 20;
+                {                    
+                    int y = initPointY;
                     this.cklbFields.Items.Add(item);
                     
-                    ComboBox cbx = new ComboBox();
-                    cbx.Name = "cbxSourceField" + p;
+                    ComboBox cbxS = new ComboBox();
+                    cbxS.Name = "cbxSourceField" + p;
                     p++;
-                    cbx.Location = new Point(180, y+1);
-                    cbx.Enabled = false;
-                    this.panelField.Controls.Add(cbx);
+                    cbxS.Location = new Point(180, y);
+                    cbxS.Height = 22;
+                    cbxS.Enabled = false;
+                    this.panelField.Controls.Add(cbxS);
                     //控件高度 随字段数量增长
-                    cklbFields.Height += 21; 
-                    if (cklbFields.Height>panelField.Height)
-                    {
-                        panelField.Height += 21;
-                        this.FindForm().Height += 21;
-                    }
-
+                    cklbFields.Height =height+ 20; 
+                   // if (cklbFields.Height>panelField.Height)
+                    //{
+                       // panelField.Height += 21;
+                    //    this.FindForm().Height += 21;
+                    //}
+                    initPointY += 20;
+                   height += 20;
                 }
             }
             _runing.Abort();
@@ -241,6 +258,32 @@ namespace SharePointDataImportAndExport
                 t = 2;
             }
             
+        }
+
+        
+        private void cklbFields_MouseClick(object sender, MouseEventArgs e)
+        {
+            //checked 后启用对应的combox
+            string idStr = "";
+            foreach (int indexChecked in cklbFields.CheckedIndices)
+            {
+                idStr +="cbxSourceField"+ indexChecked.ToString() + ";";
+            }
+            foreach (Control c in panelField.Controls)
+            {
+                if (c is ComboBox)
+                {
+
+                    if (idStr.Split(';').Contains(c.Name))
+                    {
+                        c.Enabled = true;
+                    }
+                    else
+                    {
+                        c.Enabled = false;
+                    }
+                }
+            }
         }
     }
 }
