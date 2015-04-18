@@ -139,7 +139,7 @@ namespace SharePointDataImportAndExport
         }
 
         /// <summary>
-        /// Tip message
+        /// 消息提示 Tip message
         /// </summary>
         /// <param name="obj">string</param>
         public void displayRuning(object obj)
@@ -166,24 +166,26 @@ namespace SharePointDataImportAndExport
             {
                 _runing = new Thread(displayRuning);
                 _runing.Start("Loading fields for selected list \"" + _selectListTitle + "\"");
+                //移除控件
+                Thread t = new Thread(removeCbx);
+                t.Start();
+                Thread.Sleep(1000); 
               //  Thread getField = new Thread(getListFields);
                // getField.Start(_selectListTitle);
+                t.Abort();
                 getListFields(_selectListTitle);
+               // Thread getfield = new Thread(getListFields);
+               // getfield.Start(_selectListTitle);
             }
         }
         public void getListFields(object obj)
-        {
-            this.cklbFields.Height = 50;
-            //移除控件
-            foreach (Control c in panelField.Controls)
-            {
-                panelField.Controls.Remove(c);
-            }
-            CheckedListBox cklb = new CheckedListBox();
-            cklb.Name = "cklbFields";
-            cklb.Location = new Point(10,10);
-            panelField.Controls.Add(cklb);
-
+        {                       
+            //CheckedListBox cklb = new CheckedListBox();
+            //cklb.Name = "cklbFields";
+            //cklb.Location = new Point(10,10);
+            //cklb.Height = 50;
+            //panelField.Controls.Add(cklb);
+            //this.cklbFields.Height = 50;
             if (_getInfo != null)
             {
                 ArrayList fieldArr = _getInfo.getListFields(_context, this.cbxHidden.Checked, obj.ToString());
@@ -192,31 +194,34 @@ namespace SharePointDataImportAndExport
                 int initPointY =10;
                 int height = this.cklbFields.Height;
                 foreach (var item in fieldArr)
-                {                    
+                {
+                    FieldProperty fp = (FieldProperty)item;
                     int y = initPointY;
-                    this.cklbFields.Items.Add(item);
+                    this.cklbFields.Items.Add(fp.title);
                     
                     ComboBox cbxS = new ComboBox();
                     cbxS.Name = "cbxSourceField" + p;
                     p++;
-                    cbxS.Location = new Point(180, y);
-                    cbxS.Height = 22;
+                    cbxS.Location = new Point(150, y);
+                    cbxS.Height = 23;
                     cbxS.Enabled = false;
                     this.panelField.Controls.Add(cbxS);
                     //控件高度 随字段数量增长
-                    cklbFields.Height =height+ 20; 
+                    //cklbFields.Height =height+ 20; 
                    // if (cklbFields.Height>panelField.Height)
                     //{
                        // panelField.Height += 21;
                     //    this.FindForm().Height += 21;
                     //}
-                    initPointY += 20;
+                    initPointY += 22;
                    height += 20;
                 }
+                cklbFields.Height = height;
             }
             _runing.Abort();
             Thread.Sleep(5000);
             this.lblRuning.Text = "";
+            
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -234,6 +239,11 @@ namespace SharePointDataImportAndExport
             }
         }
 
+        /// <summary>
+        /// 获取excel数据 get Excel Data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGetExcelData_Click(object sender, EventArgs e)
         {
             excelHelper eh = new excelHelper();
@@ -243,7 +253,7 @@ namespace SharePointDataImportAndExport
             int t = 0;// 再次加载前清空 历史数据
             for (int i = 0; i < excelDataTable.Columns.Count; i++)
             {
-                string item = excelDataTable.Rows[1][i].ToString();
+                string item = excelDataTable.Rows[0][i].ToString();
                 foreach (Control c in panelField.Controls)
                 {
                     if (c is ComboBox)
@@ -256,6 +266,15 @@ namespace SharePointDataImportAndExport
                     }
                 }
                 t = 2;
+            }
+            if (excelDataTable.Rows.Count<2)
+            {
+                MessageBox.Show("数据无效，至少2行(第一行表头，第二行数据)");
+                this.btnImport.Enabled = false;
+            }
+            else
+            {
+                this.btnImport.Enabled = true;
             }
             
         }
@@ -273,7 +292,7 @@ namespace SharePointDataImportAndExport
             {
                 if (c is ComboBox)
                 {
-
+                    
                     if (idStr.Split(';').Contains(c.Name))
                     {
                         c.Enabled = true;
@@ -282,6 +301,54 @@ namespace SharePointDataImportAndExport
                     {
                         c.Enabled = false;
                     }
+                }
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            //验证字段是否对应上 目标字段→源字段
+
+            //循环fieldList 选择项集合，检查对应Combox Selected项是否为空
+            string errorMsg = "";
+            #region 验证
+            foreach (int item in this.cklbFields.CheckedIndices)
+            {
+                string selectedIndex = item.ToString();
+                Control col = this.panelField.Controls.Find("cbxSourceField" + selectedIndex, true)[0];
+                ComboBox cbx = col as ComboBox;
+                if (string.IsNullOrEmpty(cbx.SelectedText))
+                {
+                    errorMsg += "第" + item + "项未选择对应源字段;/\n";
+                }
+            }
+            if (this.cklbFields.SelectedItems.Count < 1)
+            {
+                errorMsg += "请选择目标字段";
+            }
+            if (this.dgvData.Rows.Count < 2)
+            {
+                errorMsg += "请导入有效数据";
+            } 
+            #endregion
+            if (!string.IsNullOrEmpty(errorMsg))
+            {
+                MessageBox.Show(errorMsg);
+            }
+            else
+            {
+                //导入操作
+
+            }
+        }
+
+        public void removeCbx()
+        {
+            for (int i = 0; i < panelField.Controls.Count; i++)
+            {
+                if (panelField.Controls[i] is ComboBox)
+                {
+                    Controls.Remove(panelField.Controls[i]);
                 }
             }
         }

@@ -40,8 +40,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbxPassWord = new System.Windows.Forms.TextBox();
             this.panelField = new System.Windows.Forms.Panel();
-            this.cbxSourceField01 = new System.Windows.Forms.ComboBox();
-            this.cklbFields = new System.Windows.Forms.CheckedListBox();
             this.btnLoadField = new System.Windows.Forms.Button();
             this.lbxLists = new System.Windows.Forms.ListBox();
             this.btnLoadLists = new System.Windows.Forms.Button();
@@ -54,6 +52,8 @@
             this.tbxFilePath = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
+            this.cklbFields = new System.Windows.Forms.CheckedListBox();
+            this.btnImport = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panelField.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -114,6 +114,7 @@
             this.tbxUrl.Name = "tbxUrl";
             this.tbxUrl.Size = new System.Drawing.Size(138, 21);
             this.tbxUrl.TabIndex = 1;
+            this.tbxUrl.Text = "http://usweb:88";
             // 
             // label2
             // 
@@ -171,34 +172,15 @@
             // panelField
             // 
             this.panelField.AutoScroll = true;
-            this.panelField.Controls.Add(this.cbxSourceField01);
             this.panelField.Controls.Add(this.cklbFields);
             this.panelField.Location = new System.Drawing.Point(234, 66);
             this.panelField.Name = "panelField";
             this.panelField.Size = new System.Drawing.Size(303, 340);
             this.panelField.TabIndex = 2;
             // 
-            // cbxSourceField01
-            // 
-            this.cbxSourceField01.FormattingEnabled = true;
-            this.cbxSourceField01.Location = new System.Drawing.Point(180, 18);
-            this.cbxSourceField01.Name = "cbxSourceField01";
-            this.cbxSourceField01.Size = new System.Drawing.Size(120, 20);
-            this.cbxSourceField01.TabIndex = 34;
-            // 
-            // cklbFields
-            // 
-            this.cklbFields.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cklbFields.FormattingEnabled = true;
-            this.cklbFields.Location = new System.Drawing.Point(10, 10);
-            this.cklbFields.Name = "cklbFields";
-            this.cklbFields.Size = new System.Drawing.Size(168, 25);
-            this.cklbFields.TabIndex = 33;
-            this.cklbFields.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cklbFields_MouseClick);
-            // 
             // btnLoadField
             // 
-            this.btnLoadField.Location = new System.Drawing.Point(253, 31);
+            this.btnLoadField.Location = new System.Drawing.Point(257, 38);
             this.btnLoadField.Name = "btnLoadField";
             this.btnLoadField.Size = new System.Drawing.Size(155, 25);
             this.btnLoadField.TabIndex = 7;
@@ -315,11 +297,32 @@
             this.openFileDialogExcel.Title = "Select Excel File";
             this.openFileDialogExcel.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogExcel_FileOk);
             // 
+            // cklbFields
+            // 
+            this.cklbFields.Font = new System.Drawing.Font("宋体", 11.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cklbFields.FormattingEnabled = true;
+            this.cklbFields.Location = new System.Drawing.Point(10, 10);
+            this.cklbFields.Name = "cklbFields";
+            this.cklbFields.Size = new System.Drawing.Size(127, 24);
+            this.cklbFields.TabIndex = 33;
+            this.cklbFields.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cklbFields_MouseClick);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(462, 40);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 35;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1127, 420);
+            this.Controls.Add(this.btnImport);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnLoadField);
             this.Controls.Add(this.lblRuning);
@@ -357,11 +360,9 @@
         private System.Windows.Forms.Button btnLoadLists;
         private System.Windows.Forms.CheckBox cbxHidden;
         private System.Windows.Forms.Button btnLoadField;
-        private System.Windows.Forms.CheckedListBox cklbFields;
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label lblRuning;
-        private System.Windows.Forms.ComboBox cbxSourceField01;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Button btnGetExcelData;
@@ -369,6 +370,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.OpenFileDialog openFileDialogExcel;
         private System.Windows.Forms.DataGridView dgvData;
+        private System.Windows.Forms.CheckedListBox cklbFields;
+        private System.Windows.Forms.Button btnImport;
     }
 }
 
