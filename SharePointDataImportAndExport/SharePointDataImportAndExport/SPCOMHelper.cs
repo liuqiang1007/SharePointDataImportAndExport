@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,7 +58,7 @@ namespace SharePointDataImportAndExport
             CamlQuery cqQuery = new CamlQuery();
             cqQuery.ViewXml = @"<View>  
             <Query> 
-               <Where><Eq><FieldRef Name='" + fd + @"' /><Value Type='Text'>" + value + @"</Value></Eq></Where> 
+               <Where><Eq><FieldRef Name='" + sourceFieldName + @"' /><Value Type='Text'>" + value + @"</Value></Eq></Where> 
             </Query> 
       </View>";
             ListItemCollection ltcCollection = toList.GetItems(cqQuery);
@@ -69,7 +70,6 @@ namespace SharePointDataImportAndExport
                 sourceIDForValue = im.Id.ToString(CultureInfo.InvariantCulture);
 
                 lv.LookupId = Convert.ToInt32(sourceIDForValue);
-                lv.LookupValue = value;
             }
             else
             {
@@ -87,7 +87,7 @@ namespace SharePointDataImportAndExport
         /// <param name="value">查阅项值 数组</param>
         /// <param name="msg">返回成功或失败(即值在源列表中是否存在) 空则成功，不为空则失败</param>
         /// <returns></returns>
-        public List<FieldLookupValue> lookupArr(ClientContext context, string sourceListId, string sourceFieldName, ArrayList valueArr, out string msg)
+        public List<FieldLookupValue> lookupArray(ClientContext context, string sourceListId, string sourceFieldName, ArrayList valueArr, out string msg)
         {
             msg = "";
             List<FieldLookupValue> lvList = new List<FieldLookupValue>();
@@ -102,7 +102,7 @@ namespace SharePointDataImportAndExport
                 CamlQuery cqQuery = new CamlQuery();
                 cqQuery.ViewXml = @"<View>  
             <Query> 
-               <Where><Eq><FieldRef Name='" + fd + @"' /><Value Type='Text'>" + value + @"</Value></Eq></Where> 
+               <Where><Eq><FieldRef Name='" + sourceFieldName + @"' /><Value Type='Text'>" + value + @"</Value></Eq></Where> 
             </Query> 
       </View>";
                 ListItemCollection ltcCollection = toList.GetItems(cqQuery);
@@ -114,7 +114,6 @@ namespace SharePointDataImportAndExport
                     sourceIDForValue = im.Id.ToString(CultureInfo.InvariantCulture);
 
                     lv.LookupId = Convert.ToInt32(sourceIDForValue);
-                    lv.LookupValue = value;
                     lvList.Add(lv);
                 }
                 else
@@ -126,5 +125,58 @@ namespace SharePointDataImportAndExport
             return lvList;
         }
 
+        /// <summary>
+        /// User类型 单值
+        /// </summary>
+        /// <param name="userID">User ID </param>
+        /// <returns></returns>
+        public FieldUserValue UserValue(int userID)
+        {
+            var userValue =new FieldUserValue();
+            userValue.LookupId = userID;
+            return userValue;
+        }
+        /// <summary>
+        /// User类型 多值
+        /// </summary>
+        /// <param name="userID">User ID 数组(int)</param>
+        /// <returns></returns>
+        public List<FieldUserValue> UserValueArray(int[] userID)
+        {
+            List<FieldUserValue> uvList = new List<FieldUserValue>();
+            if (userID.Length>0)
+            {
+                foreach (var item in userID)
+                {
+                    var userValue = new FieldUserValue();
+                    userValue.LookupId = Convert.ToInt32(item);
+                    uvList.Add(userValue);
+                }
+            }
+            return uvList;
+        }
+
+        /// <summary>
+        /// Choice类型 单选
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public string[] Choice(string text)
+        {
+           // FieldChoice fc =new FieldChoice();
+            string[] t = new string[1]{text};
+            //fc.Choices = t;
+
+            return t;
+        }
+        // <summary>
+        /// Choice类型 多选
+        /// </summary>
+        /// <param name="text">string []</param>
+        /// <returns></returns>
+        public string[] Choice(string[] text)
+        {
+            return text;
+        }
     }
 }
