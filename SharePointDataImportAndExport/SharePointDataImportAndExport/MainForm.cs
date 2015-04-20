@@ -19,13 +19,18 @@ namespace SharePointDataImportAndExport
         Web _web;
         ClientContext _context;
         string _selectListTitle; //selected list title;
+        ArrayList _fieldArr = new ArrayList();//列表字段数组
         Thread _runing; //tip message thread;
         public MainForm()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
         }
-
+        /// <summary>
+        /// Load lists
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLoadLists_Click(object sender, EventArgs e)
         {
             this.btnConnect.Enabled = false;
@@ -35,7 +40,11 @@ namespace SharePointDataImportAndExport
             _runing = new Thread(displayRuning);
             _runing.Start("正在处理中...");
         }
-
+        /// <summary>
+        /// Load Field
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLoadField_Click(object sender, EventArgs e)
         {
             string listTitle = lbxLists.SelectedItem.ToString();
@@ -159,6 +168,11 @@ namespace SharePointDataImportAndExport
             }
         }
 
+        /// <summary>
+        /// Load Click List Fields
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lbxLists_DoubleClick(object sender, EventArgs e)
         {
             _selectListTitle = this.lbxLists.SelectedItem.ToString();
@@ -188,12 +202,12 @@ namespace SharePointDataImportAndExport
             //this.cklbFields.Height = 50;
             if (_getInfo != null)
             {
-                ArrayList fieldArr = _getInfo.getListFields(_context, this.cbxHidden.Checked, obj.ToString());
+                _fieldArr = _getInfo.getListFields(_context, this.cbxHidden.Checked, obj.ToString());
                 this.cklbFields.Items.Clear();
                 int p=0;
                 int initPointY =10;
                 int height = this.cklbFields.Height;
-                foreach (var item in fieldArr)
+                foreach (var item in _fieldArr)
                 {
                     FieldProperty fp = (FieldProperty)item;
                     int y = initPointY;
@@ -206,13 +220,6 @@ namespace SharePointDataImportAndExport
                     cbxS.Height = 23;
                     cbxS.Enabled = false;
                     this.panelField.Controls.Add(cbxS);
-                    //控件高度 随字段数量增长
-                    //cklbFields.Height =height+ 20; 
-                   // if (cklbFields.Height>panelField.Height)
-                    //{
-                       // panelField.Height += 21;
-                    //    this.FindForm().Height += 21;
-                    //}
                     initPointY += 22;
                    height += 20;
                 }
@@ -220,8 +227,7 @@ namespace SharePointDataImportAndExport
             }
             _runing.Abort();
             Thread.Sleep(5000);
-            this.lblRuning.Text = "";
-            
+            this.lblRuning.Text = "";            
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -338,7 +344,14 @@ namespace SharePointDataImportAndExport
             else
             {
                 //导入操作
-
+                //传入 目标字段集合 与 源excel数据集合，如果目标字段为outlook需要传入对于的列表ID及字段名称
+                //_fieldArr 全局变量 所有当前列表字段集合
+                ArrayList importToFieldArray = new ArrayList();
+                foreach (int item in this.cklbFields.CheckedIndices)
+                {
+                    importToFieldArray.Add(_fieldArr[item]);
+                }
+                MessageBox.Show("importToFieldArray add done");
             }
         }
 

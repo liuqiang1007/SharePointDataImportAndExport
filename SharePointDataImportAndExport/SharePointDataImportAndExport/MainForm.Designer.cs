@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbxPassWord = new System.Windows.Forms.TextBox();
             this.panelField = new System.Windows.Forms.Panel();
+            this.cklbFields = new System.Windows.Forms.CheckedListBox();
             this.btnLoadField = new System.Windows.Forms.Button();
             this.lbxLists = new System.Windows.Forms.ListBox();
             this.btnLoadLists = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.tbxFilePath = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
-            this.cklbFields = new System.Windows.Forms.CheckedListBox();
             this.btnImport = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panelField.SuspendLayout();
@@ -74,25 +74,25 @@
             this.groupBox1.Controls.Add(this.tbxPassWord);
             this.groupBox1.Location = new System.Drawing.Point(3, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(228, 145);
+            this.groupBox1.Size = new System.Drawing.Size(228, 157);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "loginInfo";
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(27, 119);
+            this.btnDisconnect.Location = new System.Drawing.Point(27, 129);
             this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(75, 21);
+            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
             this.btnDisconnect.TabIndex = 27;
             this.btnDisconnect.Text = "Disconnect";
             this.btnDisconnect.UseVisualStyleBackColor = true;
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(126, 119);
+            this.btnConnect.Location = new System.Drawing.Point(126, 129);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 21);
+            this.btnConnect.Size = new System.Drawing.Size(75, 23);
             this.btnConnect.TabIndex = 26;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -101,88 +101,98 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 20);
+            this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 14;
             this.label1.Text = "SPSiteURL:";
             // 
             // tbxUrl
             // 
             this.tbxUrl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.tbxUrl.Location = new System.Drawing.Point(77, 16);
+            this.tbxUrl.Location = new System.Drawing.Point(77, 17);
             this.tbxUrl.Name = "tbxUrl";
-            this.tbxUrl.Size = new System.Drawing.Size(138, 21);
+            this.tbxUrl.Size = new System.Drawing.Size(138, 20);
             this.tbxUrl.TabIndex = 1;
             this.tbxUrl.Text = "http://usweb:88";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 44);
+            this.label2.Location = new System.Drawing.Point(29, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 12);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 20;
             this.label2.Text = "Domain:";
             // 
             // tbxDomain
             // 
             this.tbxDomain.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.tbxDomain.Location = new System.Drawing.Point(77, 40);
+            this.tbxDomain.Location = new System.Drawing.Point(77, 43);
             this.tbxDomain.Name = "tbxDomain";
-            this.tbxDomain.Size = new System.Drawing.Size(138, 21);
+            this.tbxDomain.Size = new System.Drawing.Size(138, 20);
             this.tbxDomain.TabIndex = 2;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 100);
+            this.label4.Location = new System.Drawing.Point(12, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 12);
+            this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 25;
             this.label4.Text = "PassWord:";
             // 
             // tbxUserName
             // 
             this.tbxUserName.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.tbxUserName.Location = new System.Drawing.Point(77, 66);
+            this.tbxUserName.Location = new System.Drawing.Point(77, 72);
             this.tbxUserName.Name = "tbxUserName";
-            this.tbxUserName.Size = new System.Drawing.Size(138, 21);
+            this.tbxUserName.Size = new System.Drawing.Size(138, 20);
             this.tbxUserName.TabIndex = 3;
             this.tbxUserName.Text = "administrator";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 69);
+            this.label3.Location = new System.Drawing.Point(24, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
+            this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 24;
             this.label3.Text = "UserName:";
             // 
             // tbxPassWord
             // 
             this.tbxPassWord.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.tbxPassWord.Location = new System.Drawing.Point(77, 95);
+            this.tbxPassWord.Location = new System.Drawing.Point(77, 103);
             this.tbxPassWord.Name = "tbxPassWord";
             this.tbxPassWord.PasswordChar = '*';
-            this.tbxPassWord.Size = new System.Drawing.Size(138, 21);
+            this.tbxPassWord.Size = new System.Drawing.Size(138, 20);
             this.tbxPassWord.TabIndex = 4;
             // 
             // panelField
             // 
             this.panelField.AutoScroll = true;
             this.panelField.Controls.Add(this.cklbFields);
-            this.panelField.Location = new System.Drawing.Point(234, 66);
+            this.panelField.Location = new System.Drawing.Point(234, 72);
             this.panelField.Name = "panelField";
-            this.panelField.Size = new System.Drawing.Size(303, 340);
+            this.panelField.Size = new System.Drawing.Size(303, 368);
             this.panelField.TabIndex = 2;
+            // 
+            // cklbFields
+            // 
+            this.cklbFields.Font = new System.Drawing.Font("宋体", 11.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cklbFields.FormattingEnabled = true;
+            this.cklbFields.Location = new System.Drawing.Point(10, 11);
+            this.cklbFields.Name = "cklbFields";
+            this.cklbFields.Size = new System.Drawing.Size(127, 24);
+            this.cklbFields.TabIndex = 33;
+            this.cklbFields.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cklbFields_MouseClick);
             // 
             // btnLoadField
             // 
-            this.btnLoadField.Location = new System.Drawing.Point(257, 38);
+            this.btnLoadField.Location = new System.Drawing.Point(257, 41);
             this.btnLoadField.Name = "btnLoadField";
-            this.btnLoadField.Size = new System.Drawing.Size(155, 25);
+            this.btnLoadField.Size = new System.Drawing.Size(155, 27);
             this.btnLoadField.TabIndex = 7;
             this.btnLoadField.Text = "LoadFieldBySelectedList";
             this.btnLoadField.UseVisualStyleBackColor = true;
@@ -191,18 +201,17 @@
             // lbxLists
             // 
             this.lbxLists.FormattingEnabled = true;
-            this.lbxLists.ItemHeight = 12;
-            this.lbxLists.Location = new System.Drawing.Point(9, 186);
+            this.lbxLists.Location = new System.Drawing.Point(9, 202);
             this.lbxLists.Name = "lbxLists";
-            this.lbxLists.Size = new System.Drawing.Size(219, 220);
+            this.lbxLists.Size = new System.Drawing.Size(219, 238);
             this.lbxLists.TabIndex = 32;
             this.lbxLists.DoubleClick += new System.EventHandler(this.lbxLists_DoubleClick);
             // 
             // btnLoadLists
             // 
-            this.btnLoadLists.Location = new System.Drawing.Point(126, 158);
+            this.btnLoadLists.Location = new System.Drawing.Point(126, 171);
             this.btnLoadLists.Name = "btnLoadLists";
-            this.btnLoadLists.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadLists.Size = new System.Drawing.Size(75, 25);
             this.btnLoadLists.TabIndex = 6;
             this.btnLoadLists.Text = "LoadLists";
             this.btnLoadLists.UseVisualStyleBackColor = true;
@@ -211,9 +220,9 @@
             // cbxHidden
             // 
             this.cbxHidden.AutoSize = true;
-            this.cbxHidden.Location = new System.Drawing.Point(31, 161);
+            this.cbxHidden.Location = new System.Drawing.Point(14, 174);
             this.cbxHidden.Name = "cbxHidden";
-            this.cbxHidden.Size = new System.Drawing.Size(60, 16);
+            this.cbxHidden.Size = new System.Drawing.Size(60, 17);
             this.cbxHidden.TabIndex = 5;
             this.cbxHidden.Text = "Hidden";
             this.cbxHidden.UseVisualStyleBackColor = true;
@@ -224,7 +233,7 @@
             this.lblRuning.BackColor = System.Drawing.SystemColors.Info;
             this.lblRuning.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblRuning.ForeColor = System.Drawing.Color.Red;
-            this.lblRuning.Location = new System.Drawing.Point(240, 16);
+            this.lblRuning.Location = new System.Drawing.Point(240, 17);
             this.lblRuning.Name = "lblRuning";
             this.lblRuning.Size = new System.Drawing.Size(0, 17);
             this.lblRuning.TabIndex = 33;
@@ -236,9 +245,9 @@
             this.groupBox2.Controls.Add(this.btnGetExcelData);
             this.groupBox2.Controls.Add(this.tbxFilePath);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(543, 66);
+            this.groupBox2.Location = new System.Drawing.Point(543, 72);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(572, 340);
+            this.groupBox2.Size = new System.Drawing.Size(572, 368);
             this.groupBox2.TabIndex = 34;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "getExcelData";
@@ -246,16 +255,16 @@
             // dgvData
             // 
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvData.Location = new System.Drawing.Point(6, 39);
+            this.dgvData.Location = new System.Drawing.Point(6, 42);
             this.dgvData.Name = "dgvData";
-            this.dgvData.Size = new System.Drawing.Size(560, 301);
+            this.dgvData.Size = new System.Drawing.Size(560, 326);
             this.dgvData.TabIndex = 4;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(270, 11);
+            this.btnBrowse.Location = new System.Drawing.Point(270, 12);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 21);
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnBrowse.TabIndex = 3;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -264,9 +273,9 @@
             // btnGetExcelData
             // 
             this.btnGetExcelData.Enabled = false;
-            this.btnGetExcelData.Location = new System.Drawing.Point(397, 11);
+            this.btnGetExcelData.Location = new System.Drawing.Point(397, 12);
             this.btnGetExcelData.Name = "btnGetExcelData";
-            this.btnGetExcelData.Size = new System.Drawing.Size(75, 21);
+            this.btnGetExcelData.Size = new System.Drawing.Size(75, 23);
             this.btnGetExcelData.TabIndex = 2;
             this.btnGetExcelData.Text = "getData";
             this.btnGetExcelData.UseVisualStyleBackColor = true;
@@ -275,18 +284,18 @@
             // tbxFilePath
             // 
             this.tbxFilePath.BackColor = System.Drawing.SystemColors.Control;
-            this.tbxFilePath.Location = new System.Drawing.Point(60, 13);
+            this.tbxFilePath.Location = new System.Drawing.Point(60, 14);
             this.tbxFilePath.Name = "tbxFilePath";
             this.tbxFilePath.ReadOnly = true;
-            this.tbxFilePath.Size = new System.Drawing.Size(204, 21);
+            this.tbxFilePath.Size = new System.Drawing.Size(204, 20);
             this.tbxFilePath.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 18);
+            this.label5.Location = new System.Drawing.Point(7, 20);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.Size = new System.Drawing.Size(57, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "FilePath：";
             // 
@@ -297,21 +306,11 @@
             this.openFileDialogExcel.Title = "Select Excel File";
             this.openFileDialogExcel.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogExcel_FileOk);
             // 
-            // cklbFields
-            // 
-            this.cklbFields.Font = new System.Drawing.Font("宋体", 11.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cklbFields.FormattingEnabled = true;
-            this.cklbFields.Location = new System.Drawing.Point(10, 10);
-            this.cklbFields.Name = "cklbFields";
-            this.cklbFields.Size = new System.Drawing.Size(127, 24);
-            this.cklbFields.TabIndex = 33;
-            this.cklbFields.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cklbFields_MouseClick);
-            // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(462, 40);
+            this.btnImport.Location = new System.Drawing.Point(462, 43);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.Size = new System.Drawing.Size(75, 25);
             this.btnImport.TabIndex = 35;
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = true;
@@ -319,9 +318,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1127, 420);
+            this.ClientSize = new System.Drawing.Size(1127, 455);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnLoadField);
